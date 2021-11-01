@@ -1,0 +1,88 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<meta charset="utf-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1">
+	<title>Airpods Scrollmagic</title>
+	<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/tailwindcss/2.2.19/tailwind.min.css" referrerpolicy="no-referrer" />
+	<link rel="stylesheet" type="text/css" href="styles.css">
+</head>
+<body>
+
+	<section class="w-full h-screen flex justify-center items-center flex-col" id="main">
+		<div id="intro" class="w-full h-full flex justify-center items-center flex-col">
+			<h2 class="px-6 py-1 rounded-3xl mb-8 text-center text-yellow-500 border-yellow-500 border-2 inline-block">New</h2>
+			<h1 class="text-6xl md:text-8xl font-bold text-center mb-6">Apple Airpods</h1>
+			<h3 class="text-2xl font-bold text-center mb-2">3rd Generation</h3>
+
+			<p class="text-md text-center font-light opacity-75 mb-8">₹18500.00*</p>
+
+			<div class="flex justify-center items-center">
+				<a href="#" class="px-8 py-3 tracking-wider rounded-3xl bg-blue-600 text-white inline-block mr-3 text-lg">Buy</a>
+				<a href="#" class="ml-3 tracking-wider text-lg text-blue-600 flex justify-center items-center"><span class="mr-2">Learn more</span> <ion-icon name="chevron-forward-outline"></ion-icon></a>
+			</div>
+		</div>
+
+		<video src="airpods.mp4" id="airpod-video" class="w-full h-full object-cover"></video>
+
+		<div id="endscreen" class="w-full h-full flex justify-center items-center flex-col">
+			
+		</div>
+	</section>
+
+	<script src="https://cdnjs.cloudflare.com/ajax/libs/ScrollMagic/2.0.8/ScrollMagic.min.js" integrity="sha512-8E3KZoPoZCD+1dgfqhPbejQBnQfBXe8FuwL4z/c8sTrgeDMFEnoyTlH3obB4/fV+6Sg0a0XF+L/6xS4Xx1fUEg==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+	<script src="https://cdnjs.cloudflare.com/ajax/libs/ScrollMagic/2.0.8/plugins/debug.addIndicators.js" integrity="sha512-mq6TSOBEH8eoYFBvyDQOQf63xgTeAk7ps+MHGLWZ6Byz0BqQzrP+3GIgYL+KvLaWgpL8XgDVbIRYQeLa3Vqu6A==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+	<script src="https://cdnjs.cloudflare.com/ajax/libs/ScrollMagic/2.0.8/plugins/animation.gsap.min.js" integrity="sha512-5/OHwmQzDSBS0Ous4/hlYoWLHd06/d2r7LdKZQVBXOA6PvOqWVXtdboiLTU7lQTGyVoKVTNkwi0ol4gHGlw5ww==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+	<script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.8.0/gsap.min.js" integrity="sha512-eP6ippJojIKXKO8EPLtsUMS+/sAGHGo1UN/38swqZa1ypfcD4I0V/ac5G3VzaHfDaklFmQLEs51lhkkVaqg60Q==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+	<script type="module" src="https://unpkg.com/ionicons@5.5.2/dist/ionicons/ionicons.esm.js"></script>
+	<script nomodule src="https://unpkg.com/ionicons@5.5.2/dist/ionicons/ionicons.js"></script>
+
+	<script type="text/javascript">
+
+		var main = document.querySelector('#main');
+		var intro = main.querySelector('#intro');
+		var video = main.querySelector('video');
+
+		var controller = new ScrollMagic.Controller();
+
+		var textTween = new TimelineMax()
+		.to('#intro', 0.5, {opacity: 0});
+
+		let scene = new ScrollMagic.Scene({
+			duration: 7000,
+			triggerElement: main,
+			triggerHook: 0
+		})
+		.setPin(main)
+		// .addIndicators()
+		.addTo(controller);
+
+		let textscene = new ScrollMagic.Scene({
+			duration: 500,
+			triggerElement: main,
+			triggerHook: 0
+		})
+		.setTween(textTween)
+		.addTo(controller);
+
+
+		// Video animation code
+		let accelamount = 0.1;
+		let scrollpos = 0;
+		let delay = 0;
+
+		scene.on('update', e =>{
+			scrollpos = e.scrollPos / 1000;
+		})
+
+		setInterval(()=>{
+			delay += (scrollpos - delay) * accelamount;
+			video.currentTime = delay;
+
+		}, 33.3);
+
+
+	</script>
+
+</body>
+</html>
